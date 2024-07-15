@@ -1,7 +1,7 @@
 ﻿# PortfolioBot
 
 
-Portfolio Bot is an interactive AI bot that answers questions related to the user and provides information from external sources. This bot utilizes a custom knowledge base and Gemini API keys to deliver accurate and relevant responses.
+Portfolio Bot is an interactive AI bot built with Streamlit that answers questions related to the user and provides information from external sources. This bot utilizes a custom knowledge base and Gemini API keys to deliver accurate and relevant responses.
 
 ![Portfolio Bot Screenshot](https://res.cloudinary.com/dvlgixtg8/image/upload/v1721070263/PortfolioBot.jpg)
 
@@ -32,17 +32,17 @@ To run the Portfolio Bot locally, follow these steps:
     Create a `.env` file in the root directory and add your Gemini API keys:
     ```plaintext
     GEMINI_API_KEY=your_gemini_api_key
-    GEMINI_API_SECRET=your_gemini_api_secret
+    
     ```
 
 4. **Run the Application**:
     ```bash
-    python app.py
+    streamlit run app.py
     ```
 
 ## Usage
 
-After starting the application, open your browser and navigate to `http://localhost:5000` to interact with the Portfolio Bot. Ask questions related to the user or any other topic, and the bot will provide responses using the knowledge base and Gemini API.
+After starting the application, a Streamlit server will run and provide a local URL (e.g., `http://localhost:8501`). Open this URL in your browser to interact with the Portfolio Bot. Ask questions related to the user or any other topic, and the bot will provide responses using the knowledge base and Gemini API.
 
 ## Project Structure
 
