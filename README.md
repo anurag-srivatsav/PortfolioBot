@@ -3,7 +3,7 @@
 
 Portfolio Bot is an interactive AI bot that answers questions related to the user and provides information from external sources. This bot utilizes a custom knowledge base and Gemini API keys to deliver accurate and relevant responses.
 
-![Portfolio Bot Screenshot](assets/portfolio-bot.png)
+![Portfolio Bot Screenshot](https://res.cloudinary.com/dvlgixtg8/image/upload/v1721070263/PortfolioBot.jpg)
 
 ## Features
 
