@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 from google.generativeai import configure, GenerativeModel
+import base64
 
 
 
@@ -44,7 +45,7 @@ knowledge_base = {
     },
     "experience": [
         {
-            "role": "Participant",
+            "role": "Amazon ML Summer School-Participant",
             "organization": "Amazon ML Summer School",
             "duration": "September 2023 - October 2023",
             "details": [
@@ -73,16 +74,18 @@ knowledge_base = {
                 "Integrated features like task addition, completion tracking, and secure user authentication.",
             ],
             "link": "https://github.com/anurag-srivatsav/task-manager",
+            "View live site":"https://anuragportfoli04.netlify.app/",
         },
         {
             "name": "AI Voice Clone",
             "duration": "December 2023 - February 2024",
-            "technologies": ["Python", "OpenAI", "LangChain", "Gradio", "PlayHT", "Hugging Face"],
+            "technologies": ["Python", "Google's Generative AI", "LangChain", "PlayHT"],
             "details": [
                 "Implemented an AI voice clone application.",
                 "Engineered a customizable voice clone using advanced NLP techniques.",
             ],
-            "link": "https://github.com/anurag-srivatsav/ai-voice-clone",
+            "link": "https://github.com/anurag-srivatsav/EchoClone-AI",
+            "View live site":"https://echoclone-ai.streamlit.app/",
         },
         {
             "name": "TEXT to HTML converter",
@@ -93,7 +96,8 @@ knowledge_base = {
                 "Implemented functionality to convert text input into HTML format.",
                 "Integrated user-friendly interface for easy input and output interaction."
             ],
-            "link": "https://github.com/anurag-srivatsav/text-to-html-converter",
+            "link": "https://github.com/anurag-srivatsav/Text2Html",
+            "View live site":"https://anuragportfoli04.netlify.app/",
         },
         {
             "name": "Image Classification (Cat vs. Dog)",
@@ -106,10 +110,24 @@ knowledge_base = {
                 "Evaluated model performance using metrics like accuracy and loss."
             ],
             "link": "https://github.com/anurag-srivatsav/image-classification",
-        }
+            "View live site":"https://anuragportfoli04.netlify.app/",
+        },
+        {
+            "name": "My Portfolio Website",
+            "duration": "May 2024",
+            "technologies": ["JavaScript", "HTML", "CSS"],
+            "details": [
+            "Designed and developed a personal portfolio website showcasing my education, skills, projects, and certifications.",
+            "Implemented responsive web design techniques to ensure compatibility across various devices and screen sizes.",
+            "Integrated interactive sections for dynamic project displays, including links to GitHub repositories and live demos.",
+            "Utilized JavaScript for smooth navigation and animations, enhancing user experience."
+            ],
+            "link": "https://github.com/anurag-srivatsav/MyPortfolio",
+            "View live site":"https://anuragportfoli04.netlify.app/",
+}
     ],
     "skills": {
-        "languages": ["C", "Python", "Java", "R"],
+        "languages": [ "Python", "Java", "R", "C"],
         "frameworks": ["Django", "React.js", "Node.js", "TensorFlow"],
         "databases": ["MySQL", "MongoDB", "Oracle"],
         "web": ["HTML", "CSS", "JavaScript", "Tableau", "Power BI"],
@@ -133,6 +151,10 @@ knowledge_base = {
         {
             "name": "Microsoft Certified: Azure AI Fundamentals",
             "link": "https://learn.microsoft.com/en-us/users/anuragsrivatsav-6772/credentials/b42af8fa0151a887?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        },
+        {
+            "name": "Advanced Automation Certification",
+            "link": "https://certificates.automationanywhere.com/a02047c5-a380-4ebb-a15e-44da8fd0a097"
         },
         {
             "name": "Oracle Cloud Infrastructure 2023 Certified Architect Associate",
@@ -165,13 +187,14 @@ def check_knowledge_base(question, user_name):
     skills_keywords = ["skills", "abilities", "proficiencies","what are your skills","your abilities","proficiency areas","what can you do"]
     certifications_keywords = ["certifications", "certificates", "credentials","what certifications do you have","your certificates","credentials you hold","certification details"]
     about_me_keywords = ["about yourself", "about me","about you", "u", "about", "tell me about yourself","who are you","introduce yourself","personal details"]
+    resume_keywords=["Resume",'cv',"show me your resume", "show me your CV"]
 
     if any(keyword in question for keyword in name_keywords):
-        return f"My name is Anurag Srivastav."
+        return f"My name is Anurag Srivastav Thammera."
     elif any(keyword in question for keyword in contact_keywords):
-        return f"You can reach me at mail: {knowledge_base['contact']['email']} or phn No. :{knowledge_base['contact']['phone']} or Linkedin: {knowledge_base['contact']['linkedin']} or Github: {knowledge_base['contact']['github']}"
+        return f"You can reach me through mail: {knowledge_base['contact']['email']} \n\n phn No. : {knowledge_base['contact']['phone']}  \n\n Linkedin: {knowledge_base['contact']['linkedin']}  \n\n Github: {knowledge_base['contact']['github']}"
     elif any(keyword in question for keyword in education_keywords):
-        return f"I studied at {knowledge_base['education']['university']} and achieved a GPA of {knowledge_base['education']['GPA']}."
+        return f"I am currently pursuing a Bachelor of Technology in Artificial Intelligence and Data Science at KL University in Hyderabad, maintaining a GPA of 8.36 out of 10, with an expected graduation date in July 2025."
     elif any(keyword in question for keyword in experience_keywords):
         experience = knowledge_base["experience"]
         return "\n".join([f"I worked as a {exp['role']} at {exp['organization']} from {exp['duration']}.\n\n" for exp in experience])
@@ -179,18 +202,36 @@ def check_knowledge_base(question, user_name):
         projects = knowledge_base["projects"]
         response = ""
         for proj in projects:
-            response += f"Project: {proj['name']} - Duration: {proj['duration']} - Technologies: {', '.join(proj['technologies'])}. Link: {proj['link']}\n\n"
+            response += f"\n\n Project :  {proj['name']} - Duration: {proj['duration']} - Technologies: {', '.join(proj['technologies'])}. \n\n Link: {proj['link']}\n\n  live site: {proj['View live site']}"
         return response
     elif any(keyword in question for keyword in skills_keywords):
-        return f"My skills include: \n\n Languages{', '.join(knowledge_base['skills']['languages'])}\n\n Frameworks: {', '.join(knowledge_base['skills']['frameworks'])}\n\n Databases: {', '.join(knowledge_base['skills']['databases'])}\n\n Web: {', '.join(knowledge_base['skills']['web'])}\n\n cloud: {', '.join(knowledge_base['skills']['Cloud'])}\n\n DS & AI: {', '.join(knowledge_base['skills']['DS & AI'])}, {', '.join(knowledge_base['skills']['Other'])}."
+        return f"My skills include: \n\n Languages: {', '.join(knowledge_base['skills']['languages'])}\n\n Frameworks: {', '.join(knowledge_base['skills']['frameworks'])}\n\n Databases: {', '.join(knowledge_base['skills']['databases'])}\n\n Web: {', '.join(knowledge_base['skills']['web'])}\n\n cloud: {', '.join(knowledge_base['skills']['Cloud'])}\n\n DS & AI: {', '.join(knowledge_base['skills']['DS & AI'])}, {', '.join(knowledge_base['skills']['Other'])}."
     elif any(keyword in question for keyword in certifications_keywords):
         certifications = knowledge_base["certifications"]
         response = ""
         for cert in certifications:
-            response += f"Certification: {cert['name']}. Link: {cert['link']}\n\n"
+            response += f"\n\nCertification name : {cert['name']}.\n\n Link: {cert['link']}\n\n"
         return response
     elif any(keyword in question for keyword in about_me_keywords):
-        return f"My name is Anurag Srivastav. \n\n Final year BTech student specializing in Artificial Intelligence and Data Science at {knowledge_base['education']['university']}, with a strong academic background and practical experience in machine learning, deep learning, and statistical modeling.\n\n Seeking opportunities to apply analytical skills and contribute to innovative projects in AI-driven solutions. \n\n I have experience in {', '.join([exp['role'] for exp in knowledge_base['experience']])}. \n\n My projects include {', '.join([proj['name'] for proj in knowledge_base['projects']])}. \n\n I have skills in {', '.join(knowledge_base['skills']['languages'])}, {', '.join(knowledge_base['skills']['frameworks'])}, {', '.join(knowledge_base['skills']['databases'])}, and {', '.join(knowledge_base['skills']['web'])}. I am interested in AI and data science-related jobs."
+        return f"My name is Anurag Srivastav. \n\n Final year BTech student specializing in Artificial Intelligence and Data Science at {knowledge_base['education']['university']}, with a strong academic background and practical experience in machine learning, deep learning, and statistical modeling.\n\n Seeking opportunities to apply analytical skills and contribute to innovative projects in AI-driven solutions. \n\n I have experience in  {', '.join([exp['role'] for exp in knowledge_base['experience']])}. \n\n My projects include {', '.join([proj['name'] for proj in knowledge_base['projects']])}. \n\n I have skills in {', '.join(knowledge_base['skills']['languages'])}, {', '.join(knowledge_base['skills']['frameworks'])}, {', '.join(knowledge_base['skills']['databases'])}, and {', '.join(knowledge_base['skills']['web'])}. I am interested in AI and data science-related jobs."
+    elif any(keyword in question for keyword in resume_keywords):
+        st.write("You can download the resume by clicking the button below:")
+        
+        pdf_file_path = "AnuragSrivastav_Resume.pdf"  # Update this with your actual file path
+        with open(pdf_file_path, "rb") as pdf_file:
+            st.download_button(label="Download Resume", data=pdf_file, file_name="Anurag_Srivastav_Resume.pdf", mime="application/pdf")
+        st.write("Here's a preview of my resume:")
+        
+
+        # Optionally, use an iframe to embed the PDF directly in the page
+        st.markdown(f'<iframe src="data:application/pdf;base64,{base64.b64encode(open(pdf_file_path, "rb").read()).decode()}" width="700" height="900" type="application/pdf"></iframe>', unsafe_allow_html=True)
+        return None
+        
+        
+        
+        
+    
+
     else:
         return None
     
@@ -207,6 +248,17 @@ st.sidebar.write("""
 This is an interactive AI profile bot. \n
 Ask any questions about Anurag Srivatsav, and the bot will provide answers based on the preloaded knowledge base or generate responses using AI.
 """)
+
+st.sidebar.header("Choose a topic you wanna ask:")
+
+st.sidebar.markdown(""" Name,  Education,   Contact, Experience
+                 Skills,  Projects,  About me, Resume or CV """)
+
+
+    
+
+
+
 st.sidebar.image('https://res.cloudinary.com/dvlgixtg8/image/upload/v1721021639/chatbot.png', use_column_width=True)
 
 # URL to redirect to
@@ -217,6 +269,34 @@ if st.sidebar.button('Back to Portfolio'):
     st.sidebar.markdown(f'You are being redirected to: [{url}]({url})', unsafe_allow_html=True)
     # Redirect using Streamlit's write function with HTML link and target="_blank"
     st.sidebar.write(f'<meta http-equiv="refresh" content="0;URL={url}" target="_blank">', unsafe_allow_html=True)
+
+
+
+url = 'https://echoclone-ai.streamlit.app/'  # Replace with your desired URL
+
+st.markdown(
+    """
+    <style>
+    .styled-text {
+        font-size: 18px; /* Change font size */
+        color: skyblue; /* Change text color */
+        font-weight: bold; /* Make the text bold */
+        
+        margin-bottom: 20px; /* Add space below */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Use markdown to display the styled text in the sidebar
+st.sidebar.markdown('<p class="styled-text">Wanna explore my Unique Voice Assistant? Check it out now!</p>', unsafe_allow_html=True)
+# Adding a button to redirect to another URL
+if st.sidebar.button('EchoClone AI🎧'):
+    st.sidebar.markdown(f'You are being redirected to: [{url}]({url})', unsafe_allow_html=True)
+    # Redirect using Streamlit's write function with HTML link and target="_blank"
+    st.sidebar.write(f'<meta http-equiv="refresh" content="0;URL={url}" target="_blank">', unsafe_allow_html=True)
+
 
     
 # Initialize session state
@@ -233,13 +313,14 @@ def start_chat():
 chat_session = start_chat()
 
 # User name input
-user_name = st.text_input('Enter your name:', '')
+user_name = st.text_input('Enter your name here to enhance your interaction before posing your query: 📝🧑‍💼', '')
 
 if user_name:
-    user_input = st.text_input('You:', '')
+    user_input = st.text_input('Now, go ahead and enter your query: 🔍', '')
 
     if st.button('Send'):
         if user_input:
+            
             # Check the knowledge base first
             kb_response = check_knowledge_base(user_input, user_name)
             if kb_response:
@@ -273,7 +354,7 @@ st.markdown("""
 <hr style="border-top: 3px solid #bbb;">
 <div style="text-align:center;">
     <p>&copy; 2024 Anurag Srivatsav. All rights reserved.</p>
-    <p>Developed with ❤️ using Streamlit</p>
+    <p>Meet Nani: Your AI-Driven Profile Assistant 🤖🧠</p>
     <p>Connect with me on LinkedIn: <a href="https://linkedin.com/in/anuragsrivatsav" target="_blank">Anurag Srivatsav</a></p>
 </div>
 """, unsafe_allow_html=True)
