@@ -73,8 +73,8 @@ knowledge_base = {
                 "Developed a web app for task management.",
                 "Integrated features like task addition, completion tracking, and secure user authentication.",
             ],
-            "link": "https://github.com/anurag-srivatsav/task-manager",
-            "View live site":"https://anuragportfoli04.netlify.app/",
+            "link": "https://github.com/anurag-srivatsav/MongoDb-UserManagement",
+            "View live site":"https://mongousermanagement.streamlit.app/",
         },
         {
             "name": "AI Voice Clone",
