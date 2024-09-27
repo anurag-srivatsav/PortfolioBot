@@ -300,8 +300,12 @@ if st.sidebar.button('EchoClone AI🎧'):
 
     
 # Initialize session state
+
+# Initialize session state for chat history and user name
 if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
+if 'user_name' not in st.session_state:
+    st.session_state['user_name'] = ""
 
 # Function to interact with the generative model
 @st.cache_resource
@@ -312,46 +316,55 @@ def start_chat():
 # Main interaction loop
 chat_session = start_chat()
 
-# User name input
-user_name = st.text_input('Enter your name here to enhance your interaction before posing your query: 📝🧑‍💼', '')
+# User name input only if not already entered
+if not st.session_state['user_name']:
+    st.session_state['user_name'] = st.text_input('Enter your name here to enhance your interaction before posing your query: 📝🧑‍💼', '')
 
-if user_name:
+if st.session_state['user_name']:
+    st.write(f"Hello, {st.session_state['user_name']}! Ask me anything.")
     user_input = st.text_input('Now, go ahead and enter your query: 🔍', '')
 
     if st.button('Send'):
         if user_input:
-            
-            # Check the knowledge base first
-            kb_response = check_knowledge_base(user_input, user_name)
-            if kb_response:
-                bot_response = kb_response
-            else:
-                # Prefix user input with their name
-                user_message = f"{user_name}: {user_input}"
-                response = chat_session.send_message(user_message)
-                bot_response = response.text
-            
+            # Display loading spinner while waiting for the bot's response
+            with st.spinner('Nani is typing...'):
+                time.sleep(2)  # Simulate delay for response
+
+                # Check the knowledge base first (replace with actual function if needed)
+                kb_response = check_knowledge_base(user_input, st.session_state['user_name'])
+                if kb_response:
+                    bot_response = kb_response
+                else:
+                    # Prefix user input with their name
+                    user_message = f"{st.session_state['user_name']}: {user_input}"
+                    response = chat_session.send_message(user_message)
+                    bot_response = response.text
+
             # Update chat history
-            st.session_state['chat_history'].append((f"{user_name} ", user_input))
-            st.session_state['chat_history'].append(('Nani ', bot_response))
-            
-            # Display user message and bot response using markdown
-            conversation = f"{user_name}: {user_input}\n\n Nani: {bot_response}"
+            st.session_state['chat_history'].append((f"{st.session_state['user_name']}", user_input))
+            st.session_state['chat_history'].append(('Nani', bot_response))
+
+            # Display user message and bot response
+            conversation = f"{st.session_state['user_name']}: {user_input}\n\nNani: {bot_response}"
             st.markdown(conversation, unsafe_allow_html=True)
 
+    # Display chat history
     st.write('')
     st.subheader("Chat History:")
+    st.markdown("""
+<hr style="border-top: 3px solid #bbb;"> 
+""", unsafe_allow_html=True)
     for idx, (role, text) in enumerate(st.session_state['chat_history']):
-        if idx % 2 == 0:
-            st.write(f"{role}: {text}")
-        else:
-            st.write(f"{role}: {text}")
+        st.write(f"{role}: {text}")
+        if idx % 2 == 1:
             st.write("---")  # Add a line to differentiate entries
 
 
+    
+
 # Markdown with HTML for footer
 st.markdown("""
-<hr style="border-top: 3px solid #bbb;">
+<br><br>
 <div style="text-align:center;">
     <p>&copy; 2024 Anurag Srivatsav. All rights reserved.</p>
     <p>Meet Nani: Your AI-Driven Profile Assistant 🤖🧠</p>
