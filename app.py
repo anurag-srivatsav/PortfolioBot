@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from google.generativeai import configure, GenerativeModel
 import base64
-
+import time
 
 
 # Set your API key as an environment variable
