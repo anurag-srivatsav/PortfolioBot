@@ -6,7 +6,7 @@ import time
 
 
 # Set your API key as an environment variable
-os.environ['GENAI_API_KEY'] = 'AIzaSyDzeATPLWRenJGapH8wOCtKEs_QFf6FPR0'  # Replace with your actual API key
+os.environ['GENAI_API_KEY'] = ''  # Replace with your actual API key
 
 # Configure the SDK with the API key
 api_key = os.getenv('GENAI_API_KEY')
